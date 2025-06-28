@@ -6,7 +6,7 @@ import LottieAnimation from "./components/LottieAnimation";
 const Index = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
-      router.replace("/home")
+      router.replace("/search")
     }, 1000)
     return () => clearTimeout(timer);
   }, []);

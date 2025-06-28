@@ -3,40 +3,43 @@ import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   ImageBackground,
-  ScrollView,
   Text,
   View,
 } from "react-native";
 import LogoMovie from "../../assets/images/LogoMovie.svg";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
+
 const Home = () => {
   const [movie, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [query, setquery] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
+
+  const router = useRouter();
 
   useEffect(() => {
     const loadMovies = async () => {
       try {
         setLoading(true);
         const res = await fetchMovies({ query });
-        console.log(res.results);
         setMovies(res.results);
         setError(null);
       } catch (err) {
         setError("Something went wrong");
         console.log(err);
       } finally {
-        setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000)
       }
     };
     loadMovies();
   }, [query]);
 
-  const router = useRouter();
   return (
     <ImageBackground
       source={require("../../assets/images/BlackPaper_20.jpg")}
@@ -44,48 +47,43 @@ const Home = () => {
       resizeMode="cover"
       className="w-full"
     >
-      <View className="flex-1 w-full justify-center">
-        <ScrollView
-          className="flex-1 px-5"
-          bounces={true}
-          overScrollMode="auto"
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            minHeight: "100%",
-            paddingBottom: 280,
-          }}
-        >
-          <StatusBar style="light" translucent={true} backgroundColor="black" />
-          <View className="mt-12 items-center">
-            <LogoMovie width={100} height={100} />
-          </View>
-
-          <View className="mt-2">
-            <SearchBar
-              onPress={() => router.push("/search")}
-              placeholder="Search for a Movies"
-            />
-          </View>
+      <FlatList
+        ListHeaderComponent={
           <>
-            <Text className="text-white text-lg font-bold mt-5 mb-3">Lastest Movies</Text>
-            <FlatList
-              data={movie}
-              numColumns={3}
-              keyExtractor={(item) => item.id.toString()}
-              columnWrapperStyle={{
-                justifyContent : 'center',
-                gap : 20 , 
-                paddingRight : 5 , 
-                marginBottom : 10
-              }}
-              renderItem={({ item }: { item: Movie }) => (
-                <MovieCard {...item} />
-              )}
-            />
+            <StatusBar style="light" translucent />
+            <View className="mt-12 items-center">
+              <LogoMovie width={90} height={90} />
+            </View>
+
+            <View className="mt-2 px-5">
+              <SearchBar
+                onPress={() => router.push("/search")}
+                placeholder="Search for a Movies"
+              />
+            </View>
+
+            <Text className="text-white text-lg font-bold mt-5 mb-3 px-5">
+              Latest Movies
+            </Text>
           </>
-        </ScrollView>
-      </View>
+        }
+        contentContainerStyle={{
+          paddingBottom: 110,
+          paddingHorizontal: 5,
+        }}
+        data={movie.filter((m) => m.poster_path)}
+        numColumns={3}
+        keyExtractor={(item) => item.id.toString()}
+        columnWrapperStyle={{
+          justifyContent: "center",
+          gap: 15,
+          marginBottom: 10,
+        }}
+        renderItem={({ item }: { item: Movie }) => <MovieCard {...item} />}
+      />
+      {loading && <ActivityIndicator size="large" color="tomato" />}
     </ImageBackground>
   );
 };
+
 export default Home;
