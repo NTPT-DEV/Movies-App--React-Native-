@@ -1,11 +1,11 @@
 {
   "expo": {
     "name": " ",
-    "slug": "HSR",
+    "slug": "MoviesApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon-v2.png",
-    "scheme": "hsr",
+    "icon": "./assets/images/icon-v1.png",
+    "scheme": "movieApp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,11 +13,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon-v2.png",
+        "foregroundImage": "./assets/images/adapttive-icon-v1.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "package": "com.anonymous.HSR"
+      "package": "com.anonymous.MoviesApp"
     },
     "web": {
       "bundler": "metro",

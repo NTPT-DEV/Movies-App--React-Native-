@@ -13,7 +13,7 @@ const Index = () => {
 
   
   return (
-    <View className="flex-1 justify-center items-center bg-white">
+    <View className="flex-1 justify-center items-center bg-[tomato]">
       <LottieAnimation />
     </View>
   );

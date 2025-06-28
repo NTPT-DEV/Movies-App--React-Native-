@@ -15,7 +15,7 @@ const _layout = () => {
           overflow: "hidden",
           position: "absolute",
           borderColor: "tomato",
-          borderTopWidth: 2, 
+          borderTopWidth: 1, 
           borderWidth: 0,
           borderStyle: "solid",
           
