@@ -13,6 +13,7 @@ interface Movie {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  origin_country: string;
 }
 
 interface TrendingMovie {
@@ -69,9 +70,23 @@ interface MovieDetails {
   video: boolean;
   vote_average: number;
   vote_count: number;
+  origin_country: string;
 }
 
 interface TrendingCardProps {
   movie: TrendingMovie;
   index: number;
+}
+
+
+interface TailerMoviesProps { 
+  id : string
+  name : string
+  type : string
+  size : number
+  key : string
+  site : string
+  official : boolean
+  published_at : string
+
 }

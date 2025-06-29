@@ -1,5 +1,4 @@
 import { fetchMovies } from "@/services/api";
-import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 import {
@@ -7,7 +6,7 @@ import {
   FlatList,
   ImageBackground,
   Text,
-  View,
+  View
 } from "react-native";
 import MovieCard from "../components/MovieCard";
 import SearchBar from "../components/SearchBar";
@@ -16,7 +15,6 @@ const Search = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>("");
-  const router = useRouter();
 
   useEffect(() => {
     const loadMovies = async () => {
@@ -37,17 +35,24 @@ const Search = () => {
         setLoading(false);
       }
     };
-    loadMovies();
+
+    if (query.trim() !== "") {
+      loadMovies();
+    } else {
+      setMovies([]);
+      setError(null);
+      setLoading(false);
+    }
   }, [query]);
 
   return (
     <ImageBackground
       source={require("../../assets/images/BlackPaper_20.jpg")}
-      style={{ flex: 1 }}
+      style={{ flex: 1 , backgroundColor: "#000"}}
       resizeMode="cover"
       className="w-full"
     >
-      {error ? (
+      { error ? (
         <>
           <View className="mt-16 mb-5 px-5">
             <Text className="text-white text-center text-2xl font-bold mt-5 mb-3 px-5">
@@ -60,7 +65,9 @@ const Search = () => {
             />
           </View>
           <View className="flex-1 pb-28 justify-center items-center">
-            <Text className="text-red-500 text-center text-3xl font-[OutfitSemiBold]">{error}</Text>
+            <Text className="text-red-500 text-center text-3xl font-[OutfitSemiBold]">
+              {error}
+            </Text>
           </View>
         </>
       ) : (

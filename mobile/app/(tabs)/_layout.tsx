@@ -1,5 +1,5 @@
 import { Tabs } from "expo-router";
-import { Home, Pin, Search, Users } from "lucide-react-native";
+import { Home, Search } from "lucide-react-native";
 const _layout = () => {
   return (
     <Tabs
@@ -48,22 +48,7 @@ const _layout = () => {
           }) => <Home color={color} size={focused ? size + 4 : size} />,
         }}
       />
-      <Tabs.Screen
-        name="saved"
-        options={{
-          title: "Saved",
-          headerShown: false,
-          tabBarIcon: ({
-            color,
-            size,
-            focused,
-          }: {
-            color: string;
-            size: number;
-            focused: boolean;
-          }) => <Pin color={color} size={focused ? size + 4 : size} />,
-        }}
-      />
+    
       <Tabs.Screen
         name="search"
         options={{
@@ -80,22 +65,7 @@ const _layout = () => {
           }) => <Search color={color} size={focused ? size + 4 : size} />,
         }}
       />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Profile",
-          headerShown: false,
-          tabBarIcon: ({
-            color,
-            size,
-            focused,
-          }: {
-            color: string;
-            size: number;
-            focused: boolean;
-          }) => <Users color={color} size={focused ? size + 4 : size} />,
-        }}
-      />
+     
     </Tabs>
   );
 };
