@@ -9,7 +9,7 @@ const _layout = () => {
         tabBarStyle: {
           backgroundColor: "black",
           paddingTop: 10,
-          height: 100,
+          height: 110,
           borderTopRightRadius: 30,
           borderTopLeftRadius: 30,
           overflow: "hidden",

@@ -6,7 +6,6 @@ import {
   ActivityIndicator,
   FlatList,
   ImageBackground,
-  Text,
   View,
 } from "react-native";
 import Animated, {
@@ -25,7 +24,8 @@ const Search = () => {
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState<string>("");
 
-  useEffect(() => {
+useEffect(() => {
+  const handler = setTimeout(() => {
     const loadMovies = async () => {
       try {
         setLoading(true);
@@ -52,7 +52,11 @@ const Search = () => {
       setError(null);
       setLoading(false);
     }
-  }, [query]);
+  }, 500); 
+
+  return () => clearTimeout(handler);
+}, [query]);
+
 
   const opacity = useSharedValue(0);
   const translateY = useSharedValue(-20);
@@ -106,44 +110,45 @@ const Search = () => {
       resizeMode="cover"
       className="w-full"
     >
+      <StatusBar style="light" translucent />
       <View className="mt-7 justify-center items-center ">
         <Animated.View className="items-center" style={animateLogoEffect}>
           <LogoMovie width={90} height={90} />
         </Animated.View>
       </View>
       {error ? (
-        <View className="flex-1 items-center justify-center">
-          <View className="flex-1 items-center justify-center">
-            <View className="flex-1 px-5 w-full">
+        <View className="flex-1 w-full items-center justify-center">
+          <View className="flex-1 px-5 w-full gap-3">
+            <Animated.Text
+              style={animateText}
+              className="text-white text-center text-2xl font-bold px-5"
+            >
+              Search Movie
+            </Animated.Text>
+            <Animated.View style={animateText}>
+              <SearchBar
+                onChangeText={(text: string) => setQuery(text)}
+                placeholder="Search for a Movies"
+                value={query}
+              />
+            </Animated.View>
+            <View className="flex-1 pb-28 w-full justify-center items-center ">
               <Animated.Text
                 style={animateText}
-                className="text-white text-center text-2xl font-bold  px-5"
+                className="text-red-500 text-center text-3xl font-[OutfitSemiBold]"
               >
-                Search Movie
-              </Animated.Text>
-              <Animated.View style={animateText}>
-                <SearchBar
-                  onChangeText={(text: string) => setQuery(text)}
-                  placeholder="Search for a Movies"
-                  value={query}
-                />
-              </Animated.View>
-            </View>
-            <View className="flex-1 pb-28 justify-center items-center">
-              <Text className="text-red-500 text-center text-3xl font-[OutfitSemiBold]">
                 {error}
-              </Text>
+              </Animated.Text>
             </View>
           </View>
         </View>
       ) : (
-        <View className="flex-1">
+        <View className="flex-1 w-full">
           <FlatList
-            className="flex-1 gap-3"
+            className="flex-1 px-5 gap-3"
             ListHeaderComponent={
-              <>
-                <StatusBar style="light" translucent />
-                <View className="mb-4 gap-5">
+              <View className="flex-1 w-full items-center justify-center">
+                <View className="w-full mb-4 gap-5">
                   <View className="flex-1 px-5 w-full">
                     <Animated.Text
                       style={animateText}
@@ -153,12 +158,12 @@ const Search = () => {
                     </Animated.Text>
                   </View>
                   <Animated.View style={animateText}>
-                <SearchBar
-                  onChangeText={(text: string) => setQuery(text)}
-                  placeholder="Search for a Movies"
-                  value={query}
-                />
-              </Animated.View>
+                    <SearchBar
+                      onChangeText={(text: string) => setQuery(text)}
+                      placeholder="Search for a Movies"
+                      value={query}
+                    />
+                  </Animated.View>
                 </View>
                 {loading && (
                   <ActivityIndicator
@@ -167,7 +172,7 @@ const Search = () => {
                     style={{ marginVertical: 20 }}
                   />
                 )}
-              </>
+              </View>
             }
             contentContainerStyle={{
               paddingBottom: 110,
