@@ -4,7 +4,7 @@
     "slug": "MoviesApp",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon-v1.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "movieApp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adapttive-icon-v1.png",
+        "foregroundImage": "./assets/images/adapttive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,

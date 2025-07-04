@@ -15,10 +15,12 @@ const MovieCard = ({
     <>
       <Link href={`/movies/${id}`} asChild>
         <TouchableOpacity className="w-[30%] h-auto gap-y-1">
-          <Image
+          <View className="flex justify-center w-full">
+            <Image
             source={{ uri: `https://image.tmdb.org/t/p/w500${poster_path}` }}
-            className="w-full h-[150px] rounded-lg aspect-auto"
+            className="w-full rounded-lg"
             resizeMode="cover"
+            style={{ aspectRatio: 2 / 3 }}
           />
           <View className="mt-1 gap-y-1 px-1">
             <Text
@@ -45,6 +47,7 @@ const MovieCard = ({
                 MOVIE
               </Text>
             </View>
+          </View>
           </View>
         </TouchableOpacity>
       </Link>
