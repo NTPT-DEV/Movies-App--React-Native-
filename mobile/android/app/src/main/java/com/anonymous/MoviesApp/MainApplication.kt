@@ -1,4 +1,4 @@
-package com.anonymous.HSR
+package com.anonymous.MoviesApp
 
 import android.app.Application
 import android.content.res.Configuration

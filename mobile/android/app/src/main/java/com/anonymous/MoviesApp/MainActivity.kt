@@ -1,4 +1,4 @@
-package com.anonymous.HSR
+package com.anonymous.MoviesApp
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

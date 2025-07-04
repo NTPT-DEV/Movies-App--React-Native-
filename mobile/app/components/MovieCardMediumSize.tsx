@@ -1,24 +1,25 @@
 import { Link } from "expo-router";
-import { Image, TouchableOpacity, View } from "react-native";
+import { Dimensions, Image, Text, TouchableOpacity, View } from "react-native";
 
-const MovieCardUpcoming = ({ id, title, poster_path, release_date }: Movie) => {
+const MovieCardMediumSize = ({ id, title, poster_path, release_date }: Movie) => {
+  const screenWidth = Dimensions.get("window").width;
 
   return (
     <>
       <Link href={`/movies/${id}`} asChild>
         <TouchableOpacity>
-          <View style={{ width: "100%" }}>
+          <View style={{width: screenWidth * 0.3 }}>
             <Image
               source={{ uri: `https://image.tmdb.org/t/p/w500${poster_path}` }}
-              resizeMode="cover"
+              resizeMode="contain"
               style={{
-                width: "100%",
-                height: 290,
-                aspectRatio: 0.7,
+                width: screenWidth * 0.3 ,
+                height: 200,
+                aspectRatio: 2 / 3,
                 borderRadius : 12
               }}
             />
-            {/* <View className="mt-1 gap-y-1 ">
+            <View className="mt-1 gap-y-1 px-2">
               <Text
                 numberOfLines={1}
                 className="text-sm text-white font-[OutfitSemiBold] text-wrap"
@@ -30,11 +31,11 @@ const MovieCardUpcoming = ({ id, title, poster_path, release_date }: Movie) => {
                   {release_date?.split("-")[0]}
                 </Text>
               </View>
-            </View> */}
+            </View>
           </View>
         </TouchableOpacity>
       </Link>
     </>
   );
 };
-export default MovieCardUpcoming;
+export default MovieCardMediumSize;

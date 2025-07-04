@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.anonymous.HSR'
+    namespace 'com.anonymous.MoviesApp'
     defaultConfig {
-        applicationId 'com.anonymous.HSR'
+        applicationId 'com.anonymous.MoviesApp'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

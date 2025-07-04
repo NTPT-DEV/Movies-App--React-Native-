@@ -65,7 +65,7 @@ const MovieDetails = () => {
     };
   }, [id]);
 
-  console.log(JSON.stringify(movie, null, 2));
+  // console.log(JSON.stringify(movie, null, 2));
 
   ///  FetchVideo
   useEffect(() => {
@@ -301,7 +301,7 @@ const MovieDetails = () => {
 
                     {/* Tailer Section */}
 
-                    {tailer && tailer.length > 0 && (
+                    {tailer && tailer.length > 0 ? (
                       <View className="mt-5 flex-col w-full gap-2 pb-4">
                         <Text className="text-2xl font-[OutfitBold] text-white">
                           Official Tailer
@@ -350,9 +350,9 @@ const MovieDetails = () => {
                           />
                         </View>
                       </View>
-                    )}
+                    ) : null}
 
-                    {movie?.homepage && (
+                    {movie?.homepage ? (
                       <View className="flex-1 flex-row w-full gap-2">
                         <TouchableOpacity
                           onPress={() => Linking.openURL(movie?.homepage!)}
@@ -362,7 +362,7 @@ const MovieDetails = () => {
                             Official Home Page
                           </Text>
                         </TouchableOpacity>
-                        <Link href='/search' asChild>
+                        <Link href='/home' asChild>
                         <TouchableOpacity
                           className="border-2 border-[tomato] flex-auto justify-center items-center py-3 rounded-xl my-3"
                         >
@@ -372,7 +372,18 @@ const MovieDetails = () => {
                         </TouchableOpacity>
                         </Link>
                       </View>
+                    ) : (
+                        <Link href='/home' asChild>
+                        <TouchableOpacity
+                          className="bg-[tomato] flex-auto justify-center items-center py-3 rounded-xl my-2"
+                        >
+                          <Text className="text-[black] text-lg font-[OutfitBold]">
+                            Back
+                          </Text>
+                        </TouchableOpacity>
+                        </Link>
                     )}
+                    
                   </View>
                 </ImageBackground>
               </ScrollView>
