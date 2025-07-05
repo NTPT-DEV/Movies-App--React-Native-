@@ -22,10 +22,15 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import Carousel from "react-native-reanimated-carousel";
+import {
+  heightPercentageToDP as hp,
+  widthPercentageToDP as wp,
+} from "react-native-responsive-screen";
 import LogoMovie from "../../assets/images/LogoMovie.svg";
 import MovieCard from "../components/MovieCard";
 import MovieCardMediumSize from "../components/MovieCardMediumSize";
 import MovieCardUpcoming from "../components/MovieCardUpcoming";
+
 const screenWidth = Dimensions.get("window").width;
 
 const Home = () => {
@@ -67,7 +72,6 @@ const Home = () => {
   const textX = useSharedValue(20);
   const textOpacity = useSharedValue(20);
 
-
   const animateLogoEffect = useAnimatedStyle(() => {
     return {
       opacity: opacity.value,
@@ -97,25 +101,18 @@ const Home = () => {
         300,
         withTiming(0, { duration: 1000, easing: Easing.inOut(Easing.ease) })
       );
-      textX.value = withDelay(
-        1000,
-        withTiming(0, { duration: 2000 })
-      );
-      textOpacity.value = withDelay(
-        1000,
-        withTiming(1, { duration: 2000 })
-      );
+      textX.value = withDelay(1000, withTiming(0, { duration: 2000 }));
+      textOpacity.value = withDelay(1000, withTiming(1, { duration: 2000 }));
     }, [opacity, translateY, textX, textOpacity])
   );
 
   return (
     <ImageBackground
       source={require("../../assets/images/BlackPaper_20.jpg")}
-      style={{ flex: 1 }}
+      style={{ flex: 1, width: wp('100%'), height: hp('100%') }}
       resizeMode="cover"
     >
       <StatusBar style="light" translucent />
-
       <View className="mt-7">
         <Animated.View className="items-center" style={animateLogoEffect}>
           <LogoMovie width={90} height={90} />
@@ -140,20 +137,22 @@ const Home = () => {
             <View className="w-full">
               {coming?.length > 0 && (
                 <>
-                  <View className=" flex-col items-center justify-center px-2 pl-7 overflow-hidden">
+                  <View className=" flex-col flex-1 w-full items-center justify-center px-5 overflow-hidden pl-[50px]">
                     <Carousel
                       loop={true}
-                      width={screenWidth - 20}
+                      width={wp(100)}
                       height={300}
                       autoPlay={true}
                       snapEnabled={true}
                       autoPlayInterval={1500}
                       mode={"horizontal-stack"}
                       modeConfig={{
-                        // parallaxScrollingScale: 1,
-                        // parallaxScrollingOffset: 200,
                         snapDirection: "left",
-                        stackInterval: 18,
+                        // stackInterval: (screenWidth / 2) * 0.12,
+                        stackInterval:
+                          screenWidth >= 425
+                            ? (screenWidth / 2) * 0.19
+                            : (screenWidth / 2) * 0.12,
                       }}
                       data={coming}
                       renderItem={({ item }: { item: Movie }) => (
@@ -172,7 +171,7 @@ const Home = () => {
                   >
                     Trend Animation
                   </Animated.Text>
-                  <View className="px-2 overflow-hidden">
+                  <View className="w-full px-2 overflow-hidden">
                     <Carousel
                       data={trendAnimation}
                       width={screenWidth}
@@ -187,7 +186,10 @@ const Home = () => {
                       loop={true}
                       modeConfig={{
                         parallaxScrollingScale: 1,
-                        parallaxScrollingOffset: 270,
+                        parallaxScrollingOffset:
+                          screenWidth >= 425
+                            ? screenWidth * 0.835
+                            : screenWidth * 0.66,
                       }}
                     />
                   </View>
@@ -196,9 +198,10 @@ const Home = () => {
 
               {/* Latest Movies title */}
               {movie.length > 0 && (
-                <Animated.Text 
-                 style={animateText}
-                className="text-white text-xl my-5 px-2 font-[OutfitSemiBold]">
+                <Animated.Text
+                  style={animateText}
+                  className="text-white text-xl my-5 px-2 font-[OutfitSemiBold]"
+                >
                   Latest Movies
                 </Animated.Text>
               )}
